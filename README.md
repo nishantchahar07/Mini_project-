@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Backend setup (Node.js + PostgreSQL)
 
 Quick start
@@ -20,3 +21,6 @@ Endpoints
 - GET /health — basic health check
 - GET /dbtest — checks DB connectivity (returns server time)
 - GET /api/products — sample products controller route
+=======
+# Mini_project-
+>>>>>>> 75a772403c72f6b910e93322248cee9f79ceeb4c
