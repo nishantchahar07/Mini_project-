@@ -9,7 +9,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 app.use("/api/auth", require("./controllers/auth.controller"));
-
+app.use("/api/products", require("./controllers/products.controller"));
+app.use("/api/texts", require("./controllers/text.controller"));
 app.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}`);
 });
