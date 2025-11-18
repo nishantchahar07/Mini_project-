@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
 
 const API_BASE = "http://localhost:3000"
@@ -116,7 +116,7 @@ export default function Login({ language, setLanguage, setToken }) {
           </button>
 
           <div className="login-links">
-            <a href="#">Register</a>
+            <Link to="/register">Register</Link>
             <a href="#">Forgotten password?</a>
           </div>
         </form>

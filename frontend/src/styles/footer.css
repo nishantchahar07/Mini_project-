@@ -1,6 +1,6 @@
 .site-footer {
   position: relative;
-  background: #f8f9fa;
+  background: transparent;
   padding: 20px 0;
   margin-top: auto;
 }
@@ -23,13 +23,13 @@
 .brand-big {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
 }
 
 .divider {
   width: 1px;
   height: 24px;
-  background: #ddd;
+  background: #ffffff;
 }
 
 .footer-nav {
@@ -38,19 +38,19 @@
 }
 
 .footer-link {
-  color: #666;
+  color: #ffffff;
   text-decoration: none;
   font-size: 16px;
 }
 
 .footer-link:hover {
-  color: #333;
+  color: #ffffff;
 }
 
 .footer-bottom {
   text-align: center;
   margin-top: 16px;
-  color: #666;
+  color: #ffffff;
   font-size: 14px;
 }
 

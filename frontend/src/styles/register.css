@@ -1,0 +1,135 @@
+.register-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url(https://storage.123fakturera.se/public/wallpapers/sverige43.jpg);
+  background-size: 110% 110%;
+  background-position: center;
+  filter: brightness(0.8);
+}
+
+.register-box {
+  width: 100%;
+  max-width: 640px;
+  z-index: 5;
+  background: white;
+  border-radius: var(--border-radius-large);
+  padding: var(--spacing-large) var(--spacing-large);
+  box-shadow: 0 8px 30px var(--shadow-medium);
+  margin-top: 30px;
+}
+
+.register-title {
+  text-align: center;
+  color: var(--primary-red);
+  margin-bottom: 25px;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.register-label {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.register-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--border-radius-large);
+  border: 1px solid #ccc;
+  margin-bottom: 18px;
+}
+
+.register-password-wrap {
+  position: relative;
+}
+
+.register-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+}
+
+.register-error {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #b00020;
+  text-align: center;
+}
+
+.register-btn {
+  display: block;
+  width: auto;
+  padding: 16px 32px;
+  border-radius: var(--border-radius-large);
+  background: var(--primary-green);
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 16px auto 0;
+}
+
+.register-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.register-links a {
+  color: var(--text-purple);
+  text-decoration: underline;
+}
+
+@media (max-width: 920px) {
+  .register-box {
+    padding: 20px 26px;
+    max-width: 520px;
+  }
+
+  .register-title {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 620px) {
+  .register-box {
+    max-width: 92%;
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .register-title {
+    font-size: 32px;
+  }
+
+  .register-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .register-input {
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+
+  .register-btn {
+    padding: 14px 24px;
+    font-size: 16px;
+  }
+
+  .register-links {
+    margin-top: 12px;
+  }
+}
