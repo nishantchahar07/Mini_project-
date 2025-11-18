@@ -1,0 +1,215 @@
+:root {
+  --primary-red: #e91b1b;
+  --primary-green: #0aa02a;
+  --text-purple: #800080;
+  --shadow-light: rgba(0, 0, 0, 0.12);
+  --shadow-medium: rgba(0, 0, 0, 0.2);
+  --border-radius-large: 28px;
+  --border-radius-medium: 10px;
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 36px;
+}
+
+.main-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32px;
+  background: transparent;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+.header-left {
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  display: flex;
+  align-items: center;
+  z-index: 70;
+}
+
+.header-logo {
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+
+.header-nav {
+  display: flex;
+  gap: 38px;
+  align-items: center;
+  justify-content: center;
+  z-index: 65;
+}
+
+.header-nav .nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  padding: 8px 0;
+  opacity: 0.95;
+}
+
+.header-nav .nav-link:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+.header-right {
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 70;
+}
+
+.flag-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 30px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  padding: 2px;
+  cursor: pointer;
+}
+
+.flag-tile img {
+  width: 28px;
+  height: 18px;
+  display: block;
+}
+
+.lang-dropdown {
+  position: absolute;
+  right: 50px;
+  top: 40px;
+  min-width: 170px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 200;
+}
+
+.lang-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.lang-item img {
+  width: 28px;
+  height: 18px;
+}
+
+.lang-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 8px;
+  cursor: pointer;
+  display: none;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 30;
+}
+
+.drawer {
+  width: 250px;
+  background: white;
+  height: 100%;
+  padding: 18px;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.25);
+}
+
+.drawer-head {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer-close {
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.drawer-items {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.drawer-items li {
+  padding: 10px 0;
+  cursor: pointer;
+  color: #0b63d6;
+}
+
+@media (max-width: 920px) {
+  .header-nav {
+    gap: 22px;
+  }
+
+  .header-nav .nav-link {
+    font-size: 16px;
+  }
+
+  .lang-dropdown {
+    right: 18px;
+    top: 46px;
+  }
+
+  .hamburger-btn {
+    display: block;
+  }
+}
+
+@media (max-width: 620px) {
+  .header-nav {
+    display: none;
+  }
+
+  .header-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .flag-tile {
+    width: 38px;
+    height: 26px;
+  }
+}
