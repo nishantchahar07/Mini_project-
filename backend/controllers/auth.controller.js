@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const pool = require("../db/db");
 router.post("/login", async (req, res) => {
@@ -14,7 +14,7 @@ router.post("/login", async (req, res) => {
 
     if (!user) return res.status(400).json({ error: "User not found" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = bcrypt.compareSync(password, user.password);
     if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || "fallback_secret", {
@@ -36,8 +36,8 @@ router.post("/register", async (req, res) => {
     }
 
     // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const saltRounds = 10;
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
     
     // Insert new user (matching the simple schema from init-db.js)
     const result = await pool.query(

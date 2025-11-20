@@ -1,5 +1,5 @@
 const { Client } = require("pg");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const defaultUsers = [
@@ -48,7 +48,7 @@ async function createUsers() {
       
       // Hash password
       const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+      const hashedPassword = bcrypt.hashSync(user.password, saltRounds);
       
       // Insert user
       await client.query(

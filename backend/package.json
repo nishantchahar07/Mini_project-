@@ -4,6 +4,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "build": "npm run dev",
     "init-db": "node scripts/init-db.js",
     "populate-texts": "node scripts/populate-texts.js",
     "populate-products": "node scripts/populate-products.js",
@@ -11,7 +12,7 @@
     "setup": "npm run init-db && npm run populate-texts && npm run populate-products && npm run create-users"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^5.1.0",
