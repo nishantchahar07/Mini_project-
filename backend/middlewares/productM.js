@@ -19,9 +19,12 @@ async function checkProductTable(req, res, next) {
   created_at TIMESTAMP DEFAULT NOW(),       -- auto timestamp
   updated_at TIMESTAMP DEFAULT NOW()        -- auto update (via trigger if needed)
 );`);
+    console.log("Products table checked/created successfully");
     next();
   } catch (err) {
     console.error("Error creating products table:", err);
+    // Continue anyway - the table might already exist or we can handle it later
+    next();
   }
 }
 module.exports = checkProductTable;

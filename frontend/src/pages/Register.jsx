@@ -2,9 +2,11 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { Eye, EyeOff } from "lucide-react"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 import backgroundImage from "../assets/image1.png"
 
-export default function Register({ language, setToken }) {
+export default function Register({ language, setLanguage, setToken }) {
   const [businessName, setBusinessName] = useState("")
   const [contactPerson, setContactPerson] = useState("")
   const [address, setAddress] = useState("")
@@ -58,9 +60,11 @@ export default function Register({ language, setToken }) {
   }
 
   return (
-    <div className="register-page">
-      <div className="register-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
-      <div className="register-container">
+    <>
+      <Header language={language} setLanguage={setLanguage} />
+      <div className="register-page">
+        <div className="register-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
+        <div className="register-container">
         <div className="register-card">
           <h1 className="register-heading">{texts.registerTitle || "Register"}</h1>
 
@@ -116,10 +120,10 @@ export default function Register({ language, setToken }) {
             />
 
             <div className="terms-text">
-              <p>You can use and try 123 Fakturera for free for 14 days.</p>
-              <p>This is a true full-version, so you can send out 1000 invoices or more, for free.</p>
-              <p>123 Fakturera is so easy and self-explanatory that the chance that you will need help is minimal, but if you should need support, we are here for you, with our office manned for the most part of the day. After the trial period, the subscription continues and costs SEK 99 excluding VAT per month, which is billed annually. If you do not want to keep the program, just cancel the trial period by giving notice before 14 days from today.</p>
-              <p>Click Invoice Now to start invoicing. Your first invoice is normally ready to be sent in 5 - 10 minutes.</p>
+              <p>{texts.registerTermsText1 || "You can use and try 123 Fakturera for free for 14 days."}</p>
+              <p>{texts.registerTermsText2 || "This is a true full-version, so you can send out 1000 invoices or more, for free."}</p>
+              <p>{texts.registerTermsText3 || "123 Fakturera is so easy and self-explanatory that the chance that you will need help is minimal, but if you should need support, we are here for you, with our office manned for the most part of the day. After the trial period, the subscription continues and costs SEK 99 excluding VAT per month, which is billed annually. If you do not want to keep the program, just cancel the trial period by giving notice before 14 days from today."}</p>
+              <p>{texts.registerTermsText4 || "Click Invoice Now to start invoicing. Your first invoice is normally ready to be sent in 5 - 10 minutes."}</p>
             </div>
 
             <div className="password-row">
@@ -143,12 +147,14 @@ export default function Register({ language, setToken }) {
 
             <div className="submit-wrap">
               <button className="cta-btn" type="submit" disabled={loading}>
-                {loading ? (texts.registering || "Registering...") : (texts.register || "Invoice Now")}
+                {loading ? (texts.registering || "Registering...") : (texts.invoiceNow || "Invoice Now")}
               </button>
             </div>
           </form>
         </div>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }

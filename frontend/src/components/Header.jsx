@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Menu } from "lucide-react"
+import "../styles/header.css"
 
 export default function Header({ language = "en", setLanguage = () => {} }) {
   const [openLang, setOpenLang] = useState(false)
@@ -26,6 +27,8 @@ export default function Header({ language = "en", setLanguage = () => {} }) {
   }
 
   function chooseLang(lang) {
+    console.log('Header: Choosing language:', lang)
+    console.log('Header: setLanguage function available:', !!setLanguage)
     setLanguage(lang)
     setOpenLang(false)
   }
@@ -66,13 +69,13 @@ export default function Header({ language = "en", setLanguage = () => {} }) {
               src={language === "en"
                 ? "https://storage.123fakturere.no/public/flags/GB.png"
                 : "https://storage.123fakturere.no/public/flags/SE.png"}
-              alt={language === "en" ? "EN" : "SE"}
+              alt={language === "en" ? "EN" : "SV"}
             />
           </button>
 
           {openLang && (
             <div className="lang-dropdown">
-              <button className="lang-item" onClick={() => chooseLang("se")}>
+              <button className="lang-item" onClick={() => chooseLang("sv")}>
                 <img src="https://storage.123fakturere.no/public/flags/SE.png" alt="SE" />
                 <span>Svenska</span>
               </button>

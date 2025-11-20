@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
 import { Eye, EyeOff } from "lucide-react"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 import backgroundImage from  "/src/assets/image1.png"
 
 export default function Login({ language, setLanguage, setToken }) {
@@ -41,7 +43,7 @@ export default function Login({ language, setLanguage, setToken }) {
 
       sessionStorage.setItem("token", token)
       setToken(token)
-      navigate("/dashboard")
+      navigate("/pricelist")
     } catch (error) {
       console.log(error)
       setError("Incorrect login")
@@ -49,53 +51,57 @@ export default function Login({ language, setLanguage, setToken }) {
   }
 
   return (
-    <div className="login-page">
-      <div className="login-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
+    <>
+      <Header language={language} setLanguage={setLanguage} />
+      <div className="login-page">
+        <div className="login-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
 
-      <div className="login-box">
-        <h1 className="login-title">{texts.login || "Log in"}</h1>
+        <div className="login-box">
+          <h1 className="login-title">{texts.login || "Log in"}</h1>
 
-        <form onSubmit={handleLogin} className="login-form">
-          <label className="field-label">{texts.usernameLabel || "Username"}</label>
-          <input
-            type="text"
-            className="input-field"
-            placeholder={texts.usernamePlaceholder || "Enter username"}
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-
-          <label className="field-label">{texts.passwordLabel || "Password"}</label>
-          <div className="password-wrap">
+          <form onSubmit={handleLogin} className="login-form">
+            <label className="field-label">{texts.usernameLabel || "Username"}</label>
             <input
-              type={showPassword ? "text" : "password"}
+              type="text"
               className="input-field"
-              placeholder={texts.passwordPlaceholder || "Enter password"}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              placeholder={texts.usernamePlaceholder || "Enter username"}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
 
-            <button
-              type="button"
-              className="pw-toggle"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            <label className="field-label">{texts.passwordLabel || "Password"}</label>
+            <div className="password-wrap">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="input-field"
+                placeholder={texts.passwordPlaceholder || "Enter password"}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+
+              <button
+                type="button"
+                className="pw-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
+
+            {error && <div className="error-msg">{error}</div>}
+
+            <button type="submit" className="login-btn">
+              {texts.login || "Log in"}
             </button>
-          </div>
 
-          {error && <div className="error-msg">{error}</div>}
-
-          <button type="submit" className="login-btn">
-            {texts.login || "Log in"}
-          </button>
-
-          <div className="login-links">
-            <Link to="/register">{texts.register || "Register"}</Link>
-            <a href="#">{texts.forgotPassword || "Forgotten password?"}</a>
-          </div>
-        </form>
+            <div className="login-links">
+              <Link to="/register">{texts.register || "Register"}</Link>
+              <a href="#">{texts.forgotPassword || "Forgotten password?"}</a>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }

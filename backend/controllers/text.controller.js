@@ -4,6 +4,24 @@ const checkTextTable=require("../middlewares/textM");
 const pool=require("../db/db");
 // router.use(authMiddleware);
 router.use(checkTextTable);
+// GET /api/texts?lang=en - Get texts by language (used by frontend)
+router.get("/",async(req,res)=>{
+    try{
+        const lang = req.query.lang || 'en';
+        const texts = await pool.query("SELECT * FROM texts WHERE lang=$1", [lang]);
+        
+        // Convert to key-value object for easier frontend usage
+        const textObj = {};
+        texts.rows.forEach(row => {
+            textObj[row.key] = row.content;
+        });
+        
+        return res.json(textObj);
+    }catch(err){
+        return res.status(500).json({error:err.message});
+    }
+});
+
 router.get("/get",async(req,res)=>{
     try{
         const texts=await pool.query("SELECT * FROM texts");

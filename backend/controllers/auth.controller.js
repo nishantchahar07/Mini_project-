@@ -4,19 +4,20 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const pool = require("../db/db");
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { email, username, password } = req.body;
+  const loginEmail = email || username;
   try {
-    const result = await pool.query("SELECT * FROM users WHERE username = $1", [
-      username,
+    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+      loginEmail,
     ]);
     const user = result.rows[0];
 
     if (!user) return res.status(400).json({ error: "User not found" });
 
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || "fallback_secret", {
       expiresIn: "1h",
     });
     res.json({ token });
@@ -26,24 +27,39 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { businessName, contactPerson, address, postal, city, email, phone, password } = req.body;
   try {
+    // Check if user already exists
+    const existingUser = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ error: "User with this email already exists" });
+    }
+
+    // Hash the password
     const salt = await bcrypt.genSalt(10);
-    const password_hash = await bcrypt.hash(password, salt);
-    await pool.query(`
-    CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      username VARCHAR(50)  NOT NULL,
-      password_hash VARCHAR(200) NOT NULL
-    );
-  `);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    // Insert new user (matching the simple schema from init-db.js)
     const result = await pool.query(
-      "INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id",
-      [username, password_hash]
+      `INSERT INTO users (email, password, created_at) 
+       VALUES ($1, $2, NOW()) RETURNING id, email`,
+      [email, hashedPassword]
     );
+    
     const user = result.rows[0];
-    return res.status(201).json({ user });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || "fallback_secret", {
+      expiresIn: "1h",
+    });
+    
+    return res.status(201).json({ 
+      token, 
+      user: { 
+        id: user.id, 
+        email: user.email 
+      } 
+    });
   } catch (err) {
+    console.error("Registration error:", err);
     res.status(500).json({ error: err.message });
   }
 });

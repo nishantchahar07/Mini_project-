@@ -48,23 +48,23 @@
 /* Green close button styling */
 .terms-close-button {
   padding: 16px 32px;
-  border-radius: var(--border-radius-large);
-  background: var(--primary-green);
+  border-radius: 25px;
+  background: #28a745;
   border: none;
   color: white;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
   transition: all 0.3s ease;
   width: fit-content;
   min-width: 200px;
 }
 
 .terms-close-button:hover {
-  background: var(--primary-green);
+  background: #218838;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
 /* Terms container box - without title */
@@ -72,9 +72,10 @@
   width: 100%;
   max-width: 800px; /* Increased from 640px for wider box */
   background: white;
-  border-radius: var(--border-radius-large);
-  padding: var(--spacing-large) var(--spacing-large);
-  box-shadow: 0 8px 30px var(--shadow-medium);
+  border-radius: 20px;
+  padding: 30px 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  text-align: center !important;
   /* Removed max-height and overflow-y to show content in full */
 }
 
@@ -83,8 +84,15 @@
   color: #555; /* Changed to grayish text like register page */
   line-height: 1.6;
   margin-bottom: 15px;
-  text-align: left;
+  text-align: center !important;
+  text-justify: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
 }
+
+/* Normal paragraph styling - no special formatting for first paragraph */
 
 @media (max-width: 920px) {
   .terms-page {

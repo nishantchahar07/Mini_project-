@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "init-db": "node scripts/init-db.js",
+    "populate-texts": "node scripts/populate-texts.js",
+    "populate-products": "node scripts/populate-products.js",
+    "create-users": "node scripts/create-users.js",
+    "setup": "npm run init-db && npm run populate-texts && npm run populate-products && npm run create-users"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

@@ -1,0 +1,100 @@
+/* Dashboard Header - Blue topbar matching the image */
+.dashboard-topbar {
+  background: #4a90e2;
+  height: 60px;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Brand section with avatar and user info */
+.dashboard-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.dashboard-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.dashboard-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
+.dashboard-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.2;
+}
+
+/* Language selector */
+.dashboard-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.dashboard-lang:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-flag {
+  font-size: 16px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dashboard-topbar {
+    padding: 0 20px;
+  }
+  
+  .dashboard-name {
+    font-size: 13px;
+  }
+  
+  .dashboard-sub {
+    font-size: 11px;
+  }
+  
+  .dashboard-lang {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+  
+  .dashboard-avatar {
+    width: 35px;
+    height: 35px;
+  }
+}

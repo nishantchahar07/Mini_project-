@@ -6,6 +6,17 @@ const checkProductTable = require("../middlewares/productM");
 
 router.use(authMiddleware);
 router.use(checkProductTable);
+
+// GET /api/products - Get all products
+router.get("/", async (req, res) => {
+  try {
+    const products = await pool.query("SELECT * FROM products ORDER BY created_at DESC");
+    return res.json(products.rows);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/get", async (req, res) => {
   try {
     const products = await pool.query("SELECT * FROM products");
@@ -26,6 +37,22 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
+// POST /api/products - Create a new product
+router.post("/", async (req, res) => {
+  try {
+    const { name, description, in_price, price, unit, vat_rate } = req.body;
+
+    const newProduct = await pool.query(
+      `INSERT INTO products (name, description, in_price, price, unit, vat_rate) 
+       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+      [name, description || '', parseFloat(in_price) || 0, parseFloat(price) || 0, unit || 'pcs', parseFloat(vat_rate) || 0]
+    );
+    return res.status(201).json(newProduct.rows[0]);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 router.post("/create", async (req, res) => {
   try {
     const { name, description, in_price, price } = req.body;
@@ -40,13 +67,50 @@ router.post("/create", async (req, res) => {
   }
 });
 
+// PUT /api/products/:id - Update a complete product
 router.put("/update/:id", async (req, res) => {
   try {
-    const { name, description, in_price, price } = req.body;
+    const { name, description, in_price, price, unit, vat_rate } = req.body;
     const updatedProduct = await pool.query(
-      "UPDATE products SET name=$1, description=$2, in_price=$3, price=$4 WHERE id=$5 RETURNING *",
-      [name, description, in_price, price, req.params.id]
+      "UPDATE products SET name=$1, description=$2, in_price=$3, price=$4, unit=$5, vat_rate=$6, updated_at=NOW() WHERE id=$7 RETURNING *",
+      [name, description || '', parseFloat(in_price) || 0, parseFloat(price) || 0, unit || 'pcs', parseFloat(vat_rate) || 0, req.params.id]
     );
+    
+    if (updatedProduct.rows.length === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    
+    return res.json(updatedProduct.rows[0]);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+// PATCH /api/products/:id/field - Update individual field
+router.patch("/:id/field", async (req, res) => {
+  try {
+    const { field, value } = req.body;
+    const productId = req.params.id;
+    
+    // Validate field name to prevent SQL injection
+    const allowedFields = ['name', 'description', 'in_price', 'price', 'unit', 'vat_rate'];
+    if (!allowedFields.includes(field)) {
+      return res.status(400).json({ error: "Invalid field name" });
+    }
+    
+    // Handle numeric fields
+    let processedValue = value;
+    if (['in_price', 'price', 'vat_rate'].includes(field)) {
+      processedValue = parseFloat(value) || 0;
+    }
+    
+    const query = `UPDATE products SET ${field}=$1, updated_at=NOW() WHERE id=$2 RETURNING *`;
+    const updatedProduct = await pool.query(query, [processedValue, productId]);
+    
+    if (updatedProduct.rows.length === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    
     return res.json(updatedProduct.rows[0]);
   } catch (err) {
     return res.status(500).json({ error: err.message });

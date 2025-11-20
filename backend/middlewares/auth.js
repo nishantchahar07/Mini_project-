@@ -2,13 +2,17 @@
 const jwt = require('jsonwebtoken');
 
 function auth(req, res, next) {
-  const authHeader = req.headers;
+  const authHeader = req.headers.authorization;
 
-  if (!authHeader) return res.status(401).json({ error: 'Headers Unaccesible' });
+  if (!authHeader) return res.status(401).json({ error: 'No authorization header' });
 
-  const token = authHeader['authorization'];
+  // Extract token from "Bearer TOKEN" format
+  const token = authHeader.startsWith('Bearer ') 
+    ? authHeader.slice(7) 
+    : authHeader;
+    
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
     req.user = decoded;
     next();
   } catch (err) {

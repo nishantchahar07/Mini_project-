@@ -1,11 +1,28 @@
-import { useMemo } from "react"
+import { useMemo, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 import backgroundImage from "../assets/image1.png"
 
-export default function Terms() {
+export default function Terms({ language = "en", setLanguage = () => {} }) {
   const navigate = useNavigate()
+  const [texts, setTexts] = useState({})
 
-  const text = useMemo(() => `BY clicking Invoice Now, you choose to register according to the information that you have typed in and the text on the registration page and the terms here, and you at the same time accept the terms here.
+  useEffect(() => {
+    loadTexts()
+  }, [language])
+
+  async function loadTexts() {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/texts?lang=${language}`)
+      setTexts(response.data || {})
+    } catch (error) {
+      console.log("Terms i18n load error", error)
+    }
+  }
+
+  const text = texts.termsFullContent || `BY clicking Invoice Now, you choose to register according to the information that you have typed in and the text on the registration page and the terms here, and you at the same time accept the terms here.
 
 You can use the program FOR FREE for 14 days.
 
@@ -53,31 +70,33 @@ Click on Invoice Now to register according to the information you have entered a
 
 Our experience is that our customers are very satisfied with the way we work and hope and believe that this will also be your experience.
 
-Have a great day!`, [])
+Have a great day!`
 
   const paragraphs = text.split("\n\n")
 
   return (
-    <div className="terms-page">
-      <div className="terms-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
-      
-      {/* Terms content layout */}
-      <div className="terms-content-stack">
+    <>
+      <Header language={language} setLanguage={setLanguage} />
+      <div className="terms-page">
+        <div className="terms-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
+        
+        {/* Terms content layout */}
+        <div className="terms-content-stack">
         {/* Terms title outside box */}
-        <h1 className="terms-title-outside">Terms</h1>
+        <h1 className="terms-title-outside">{texts.termsTitle || "Terms"}</h1>
         
         {/* First close button */}
         <button 
           className="terms-close-button" 
           onClick={() => navigate(-1)}
         >
-          Close and Go Back
+          {texts.closeAndGoBack || "Close and Go Back"}
         </button>
 
         {/* Terms container box */}
         <div className="terms-container">
           {paragraphs.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
+            <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
           ))}
         </div>
         
@@ -86,9 +105,11 @@ Have a great day!`, [])
           className="terms-close-button" 
           onClick={() => navigate(-1)}
         >
-          Close and Go Back
+          {texts.closeAndGoBack || "Close and Go Back"}
         </button>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }

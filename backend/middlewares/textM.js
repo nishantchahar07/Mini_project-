@@ -15,9 +15,12 @@ async function checkTextTable(req, res, next) {
   UNIQUE (page, key, lang)          -- prevents duplicates
 );
 `);
+    console.log("Texts table checked/created successfully");
     next();
   } catch (err) {
-    console.error("Error creating products table:", err);
+    console.error("Error creating texts table:", err);
+    // Continue anyway - the table might already exist or we can handle it later
+    next();
   }
 }
 module.exports = checkTextTable;

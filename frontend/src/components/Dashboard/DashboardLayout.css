@@ -1,0 +1,53 @@
+/* Dashboard Layout - Main container */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+/* Dashboard body container */
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  position: relative;
+  margin-top: 60px; /* Space for fixed header */
+}
+
+/* Main content area */
+.dashboard-content {
+  flex: 1;
+  margin-left: 200px;
+  background: #ffffff;
+  min-height: calc(100vh - 60px);
+  overflow-x: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-content {
+    margin-left: 0;
+  }
+}
+
+/* Global styles to override any conflicting styles */
+.dashboard-layout * {
+  box-sizing: border-box;
+}
+
+/* Remove any global background that might interfere */
+.dashboard-layout .page-content {
+  padding: 0;
+  background: none;
+}
+
+.dashboard-layout .content-card {
+  margin: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.dashboard-layout .card-body {
+  padding: 0;
+}
