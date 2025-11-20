@@ -37,6 +37,17 @@ router.get("/get/:page/:lang",async(req,res)=>{
         return res.status(500).json({error:err.message});
     }
 });
+router.get("/terms",async(req,res)=>{
+    try{
+        const lang = req.query.lang || 'en';
+        const result = await pool.query("SELECT content FROM texts WHERE page='terms' AND key='terms' AND lang=$1", [lang]);
+        if(result.rows.length === 0) return res.status(404).json({error: "Terms not found"});
+        return res.json({text: result.rows[0].content});
+    }catch(err){
+        return res.status(500).json({error:err.message});
+    }
+});
+
 router.post("/create",async(req,res)=>{
     try{
         const {page,key,lang,content}=req.body;
