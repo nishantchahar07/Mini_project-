@@ -7,14 +7,17 @@ import Pricelist from './pages/Pricelist'
 import './styles/global.css'
 
 function AppContent() {
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState(() => {
+    return localStorage.getItem('selectedLanguage') || 'en'
+  })
   const [token, setToken] = useState(sessionStorage.getItem('token') || '')
   const location = useLocation()
 
-  // Debug language changes
+  // Handle language changes and persist to localStorage
   const handleLanguageChange = (newLang) => {
     console.log('App: Language changing from', language, 'to', newLang)
     setLanguage(newLang)
+    localStorage.setItem('selectedLanguage', newLang)
   }
 
   useEffect(() => {

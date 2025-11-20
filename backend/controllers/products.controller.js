@@ -7,7 +7,6 @@ const checkProductTable = require("../middlewares/productM");
 router.use(authMiddleware);
 router.use(checkProductTable);
 
-// GET /api/products - Get all products
 router.get("/", async (req, res) => {
   try {
     const products = await pool.query("SELECT * FROM products ORDER BY created_at DESC");
@@ -37,7 +36,6 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
-// POST /api/products - Create a new product
 router.post("/", async (req, res) => {
   try {
     const { name, description, in_price, price, unit, vat_rate } = req.body;
@@ -67,7 +65,6 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// PUT /api/products/:id - Update a complete product
 router.put("/update/:id", async (req, res) => {
   try {
     const { name, description, in_price, price, unit, vat_rate } = req.body;
@@ -86,19 +83,16 @@ router.put("/update/:id", async (req, res) => {
   }
 });
 
-// PATCH /api/products/:id/field - Update individual field
 router.patch("/:id/field", async (req, res) => {
   try {
     const { field, value } = req.body;
     const productId = req.params.id;
     
-    // Validate field name to prevent SQL injection
     const allowedFields = ['name', 'description', 'in_price', 'price', 'unit', 'vat_rate'];
     if (!allowedFields.includes(field)) {
       return res.status(400).json({ error: "Invalid field name" });
     }
     
-    // Handle numeric fields
     let processedValue = value;
     if (['in_price', 'price', 'vat_rate'].includes(field)) {
       processedValue = parseFloat(value) || 0;

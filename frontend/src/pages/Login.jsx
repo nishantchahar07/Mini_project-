@@ -4,7 +4,8 @@ import axios from "axios"
 import { Eye, EyeOff } from "lucide-react"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import backgroundImage from  "/src/assets/image1.png"
+// Using SOW-specified background image
+const backgroundImage = "https://storage.123fakturera.se/public/wallpapers/sverige43.jpg"
 
 export default function Login({ language, setLanguage, setToken }) {
   const [email, setEmail] = useState("")
@@ -21,7 +22,7 @@ export default function Login({ language, setLanguage, setToken }) {
 
   async function loadTexts() {
     try {
-      const response = await axios.get("http://localhost:3000/api/texts?lang=" + language)
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/texts?lang=${language}`)
       setTexts(response.data)
     } catch (error) {
       console.log("i18n load error", error)
@@ -33,7 +34,7 @@ export default function Login({ language, setLanguage, setToken }) {
     setError("")
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE}/api/auth/login`, {
         username: email,
         password: password
       })
@@ -101,7 +102,7 @@ export default function Login({ language, setLanguage, setToken }) {
           </form>
         </div>
       </div>
-      <Footer />
+      <Footer language={language} />
     </>
   )
 }

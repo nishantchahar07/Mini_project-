@@ -1,13 +1,28 @@
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Menu } from "lucide-react"
+import axios from "axios"
 import "../styles/header.css"
 
 export default function Header({ language = "en", setLanguage = () => {} }) {
   const [openLang, setOpenLang] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [texts, setTexts] = useState({})
   const dropdownRef = useRef(null)
   const menuRef = useRef(null)
+
+  useEffect(() => {
+    loadTexts()
+  }, [language])
+
+  async function loadTexts() {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/texts?lang=${language}`)
+      setTexts(response.data || {})
+    } catch (error) {
+      console.log("Header i18n load error", error)
+    }
+  }
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -55,11 +70,11 @@ export default function Header({ language = "en", setLanguage = () => {} }) {
       </div>
 
       <nav className="header-nav desktop-only">
-        <a href="#" className="nav-link">Home</a>
-        <a href="#" className="nav-link">Order</a>
-        <a href="#" className="nav-link">Our Customers</a>
-        <a href="#" className="nav-link">About us</a>
-        <a href="#" className="nav-link">Contact Us</a>
+        <a href="#" className="nav-link">{texts.home || "Home"}</a>
+        <a href="#" className="nav-link">{texts.order || "Order"}</a>
+        <a href="#" className="nav-link">{texts.ourCustomers || "Our Customers"}</a>
+        <a href="#" className="nav-link">{texts.aboutUs || "About us"}</a>
+        <a href="#" className="nav-link">{texts.contactUs || "Contact Us"}</a>
       </nav>
 
       <div className="header-right">
@@ -92,11 +107,11 @@ export default function Header({ language = "en", setLanguage = () => {} }) {
         <>
           <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>
           <div className="menu-dropdown" ref={menuRef}>
-            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>Home</a>
-            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>Order</a>
-            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>Our Customers</a>
-            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>About us</a>
-            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>Contact Us</a>
+            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>{texts.home || "Home"}</a>
+            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>{texts.order || "Order"}</a>
+            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>{texts.ourCustomers || "Our Customers"}</a>
+            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>{texts.aboutUs || "About us"}</a>
+            <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>{texts.contactUs || "Contact Us"}</a>
           </div>
         </>
       )}

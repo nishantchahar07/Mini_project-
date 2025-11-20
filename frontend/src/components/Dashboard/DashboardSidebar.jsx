@@ -26,7 +26,7 @@ export default function DashboardSidebar({ language }) {
 
   async function loadTexts() {
     try {
-      const response = await axios.get(`http://localhost:3000/api/texts?lang=${language}`)
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/texts?lang=${language}`)
       setTexts(response.data || {})
     } catch (error) {
       console.log("Sidebar i18n load error", error)

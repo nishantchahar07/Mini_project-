@@ -18,7 +18,7 @@ export default function DashboardHeader({ language, setLanguage }) {
       if (!token) return
       
       // Fetch real user data from the backend using JWT token
-      const response = await axios.get('http://localhost:3000/api/user/me', {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/user/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       
@@ -69,7 +69,7 @@ export default function DashboardHeader({ language, setLanguage }) {
 
   async function loadTexts() {
     try {
-      const response = await axios.get(`http://localhost:3000/api/texts?lang=${language}`)
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/texts?lang=${language}`)
       setTexts(response.data || {})
     } catch (error) {
       console.log("Header i18n load error", error)

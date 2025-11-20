@@ -4,7 +4,8 @@ import axios from "axios"
 import { Eye, EyeOff } from "lucide-react"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import backgroundImage from "../assets/image1.png"
+// Using SOW-specified background image
+const backgroundImage = "https://storage.123fakturera.se/public/wallpapers/sverige43.jpg"
 
 export default function Register({ language, setLanguage, setToken }) {
   const [businessName, setBusinessName] = useState("")
@@ -25,7 +26,7 @@ export default function Register({ language, setLanguage, setToken }) {
     let mounted = true
     async function load() {
       try {
-        const r = await axios.get("http://localhost:3000/api/texts?lang=" + language)
+        const r = await axios.get(`${import.meta.env.VITE_API_BASE}/api/texts?lang=${language}`)
         if (mounted) setTexts(r.data || {})
       } catch (e) {
         console.log("i18n load error", e)
@@ -42,7 +43,7 @@ export default function Register({ language, setLanguage, setToken }) {
     setLoading(true)
     try {
       const payload = { businessName, contactPerson, address, postal, city, email, phone, password }
-      const r = await axios.post("http://localhost:3000/api/auth/register", payload)
+      const r = await axios.post(`${import.meta.env.VITE_API_BASE}/api/auth/register`, payload)
       const token = r?.data?.token
       if (!token) {
         setError(r?.data?.message || "Registration failed")
@@ -120,10 +121,9 @@ export default function Register({ language, setLanguage, setToken }) {
             />
 
             <div className="terms-text">
-              <p>{texts.registerTermsText1 || "You can use and try 123 Fakturera for free for 14 days."}</p>
-              <p>{texts.registerTermsText2 || "This is a true full-version, so you can send out 1000 invoices or more, for free."}</p>
-              <p>{texts.registerTermsText3 || "123 Fakturera is so easy and self-explanatory that the chance that you will need help is minimal, but if you should need support, we are here for you, with our office manned for the most part of the day. After the trial period, the subscription continues and costs SEK 99 excluding VAT per month, which is billed annually. If you do not want to keep the program, just cancel the trial period by giving notice before 14 days from today."}</p>
-              <p>{texts.registerTermsText4 || "Click Invoice Now to start invoicing. Your first invoice is normally ready to be sent in 5 - 10 minutes."}</p>
+              {(texts.trialText || "You can use and try 123 Fakturera for free for 14 days.\n\nThis is a true full-version, so you can send out 1000 invoices or more, for free.\n\n123 Fakturera is so easy and self-explanatory that the chance that you will need help is minimal, but if you should need support, we are here for you, with our office manned for the most part of the day. After the trial period, the subscription continues and costs SEK 99 excluding VAT per month, which is billed annually. If you do not want to keep the program, just cancel the trial period by giving notice before 14 days from today.\n\nClick Invoice Now to start invoicing. Your first invoice is normally ready to be sent in 5 - 10 minutes.").split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
 
             <div className="password-row">
@@ -154,7 +154,7 @@ export default function Register({ language, setLanguage, setToken }) {
         </div>
         </div>
       </div>
-      <Footer />
+      <Footer language={language} />
     </>
   )
 }

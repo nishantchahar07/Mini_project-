@@ -23,7 +23,6 @@ async function checkProductTable(req, res, next) {
     next();
   } catch (err) {
     console.error("Error creating products table:", err);
-    // Continue anyway - the table might already exist or we can handle it later
     next();
   }
 }

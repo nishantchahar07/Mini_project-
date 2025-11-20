@@ -30,7 +30,7 @@ export default function PriceList({ language = 'en', setLanguage }) {
 
   async function loadTexts() {
     try {
-      const response = await axios.get(`http://localhost:3000/api/texts?lang=${language}`)
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/texts?lang=${language}`)
       setTexts(response.data || {})
     } catch (error) {
       console.log("Pricelist i18n load error", error)
@@ -45,7 +45,7 @@ export default function PriceList({ language = 'en', setLanguage }) {
   async function loadProducts() {
     try {
       const token = sessionStorage.getItem('token')
-      const response = await axios.get('http://localhost:3000/api/products', {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/products`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setProducts(response.data || [])
@@ -58,7 +58,7 @@ export default function PriceList({ language = 'en', setLanguage }) {
   async function updateProductField(productId, field, value) {
     try {
       const token = sessionStorage.getItem('token')
-      await axios.patch(`http://localhost:3000/api/products/${productId}/field`, {
+      await axios.patch(`${import.meta.env.VITE_API_BASE}/api/products/${productId}/field`, {
         field,
         value
       }, {

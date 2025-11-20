@@ -3,7 +3,6 @@ const router = express.Router();
 const pool = require("../db/db");
 const auth = require("../middlewares/auth");
 
-// GET /api/user/me - Get current user info
 router.get("/me", auth, async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -19,17 +18,14 @@ router.get("/me", auth, async (req, res) => {
     
     const user = result.rows[0];
     
-    // Extract name and company from email for display
     const emailUser = user.email.split('@')[0];
     const emailDomain = user.email.split('@')[1];
     
-    // Generate display name
-    const displayName = emailUser.includes('.') 
+    const displayName = emailUser.includes('.')
       ? emailUser.split('.').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')
       : emailUser.charAt(0).toUpperCase() + emailUser.slice(1);
-    
-    // Generate company name
-    let companyName = 'Your Company';
+   
+   let companyName = 'Your Company';
     if (emailDomain === 'fakturera.com') {
       companyName = 'Fakturera AS';
     } else if (emailDomain === 'demo.com') {

@@ -3,17 +3,18 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-     "start": "node server.js",
-      "dev": "nodemon server.js",
-    "build": "echo 'nothing to build'",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "build": "echo 'No build step required for Node.js backend'",
     "init-db": "node scripts/init-db.js",
+    "init-texts-table": "node scripts/init-texts-table.js",
     "populate-texts": "node scripts/populate-texts.js",
     "populate-products": "node scripts/populate-products.js",
     "create-users": "node scripts/create-users.js",
-    "setup": "npm run init-db && npm run populate-texts && npm run populate-products && npm run create-users"
+    "setup": "npm run init-db && npm run init-texts-table && npm run populate-texts && npm run populate-products && npm run create-users"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^5.1.0",
