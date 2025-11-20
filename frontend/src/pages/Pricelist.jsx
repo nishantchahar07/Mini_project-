@@ -14,7 +14,6 @@ export default function PriceList({ language = 'en', setLanguage }) {
   })
   const navigate = useNavigate()
 
-  // Check authentication
   useEffect(() => {
     const token = sessionStorage.getItem('token')
     if (!token) {
@@ -23,7 +22,6 @@ export default function PriceList({ language = 'en', setLanguage }) {
     }
   }, [navigate])
 
-  // Load translations
   useEffect(() => {
     loadTexts()
   }, [language])
@@ -37,7 +35,6 @@ export default function PriceList({ language = 'en', setLanguage }) {
     }
   }
 
-  // Load products from backend
   useEffect(() => {
     loadProducts()
   }, [])
@@ -54,7 +51,6 @@ export default function PriceList({ language = 'en', setLanguage }) {
     }
   }
 
-  // Update a product field
   async function updateProductField(productId, field, value) {
     try {
       const token = sessionStorage.getItem('token')
@@ -65,10 +61,9 @@ export default function PriceList({ language = 'en', setLanguage }) {
         headers: { Authorization: `Bearer ${token}` }
       })
       
-      // Update local state
-      setProducts(prevProducts => 
-        prevProducts.map(product => 
-          product.id === productId 
+      setProducts(prevProducts =>
+        prevProducts.map(product =>
+          product.id === productId
             ? { ...product, [field]: field.includes('price') ? parseFloat(value) : value }
             : product
         )
@@ -78,7 +73,6 @@ export default function PriceList({ language = 'en', setLanguage }) {
     }
   }
 
-  // Handle field editing
   const handleFieldEdit = (productId, field, value) => {
     setEditingField(null)
     if (value !== undefined) {
@@ -86,14 +80,12 @@ export default function PriceList({ language = 'en', setLanguage }) {
     }
   }
 
-  // Filter products based on search
   const filteredProducts = products.filter(product => {
     const articleMatch = product.id.toString().toLowerCase().includes(searchFilters.articleNo.toLowerCase())
     const nameMatch = product.name.toLowerCase().includes(searchFilters.productName.toLowerCase())
     return articleMatch && nameMatch
   })
 
-  // Editable field component
   const EditableField = ({ product, field, value, className = "" }) => {
     const [tempValue, setTempValue] = useState(value)
     const isEditing = editingField === `${product.id}-${field}`
@@ -138,7 +130,6 @@ export default function PriceList({ language = 'en', setLanguage }) {
     <DashboardLayout language={language} setLanguage={setLanguage}>
       <div className="pr-main-content">
         <div className="pr-content">
-          {/* Search and Controls */}
           <div className="pr-controls">
             <div className="pr-searches">
               <input 
@@ -161,7 +152,6 @@ export default function PriceList({ language = 'en', setLanguage }) {
             </div>
           </div>
 
-          {/* Products Table */}
           <div className="pr-table">
             <div className="pr-thead">
               <div className="pr-th-article">{texts.articleNo || 'Article No.'}</div>

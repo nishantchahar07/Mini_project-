@@ -31,13 +31,12 @@ export default function Terms({ language = "en", setLanguage = () => {} }) {
       <Header language={language} setLanguage={setLanguage} />
       <div className="terms-page">
         <div className="terms-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
-        
-        {/* Terms content layout */}
+
         <div className="terms-content-stack">
-        {/* Terms title outside box */}
+        {}
         <h1 className="terms-title-outside">{texts.termsTitle || "Terms"}</h1>
         
-        {/* First close button */}
+        {}
         <button 
           className="terms-close-button" 
           onClick={() => navigate(-1)}
@@ -45,14 +44,14 @@ export default function Terms({ language = "en", setLanguage = () => {} }) {
           {texts.closeAndGoBack || "Close and Go Back"}
         </button>
 
-        {/* Terms container box */}
+        {}
         <div className="terms-container">
           {paragraphs.map((paragraph, index) => (
             <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
           ))}
         </div>
         
-        {/* Second close button */}
+        {}
         <button 
           className="terms-close-button" 
           onClick={() => navigate(-1)}

@@ -6,7 +6,6 @@ export default function DashboardHeader({ language, setLanguage }) {
   const [texts, setTexts] = useState({})
   const [user, setUser] = useState(null)
 
-
   useEffect(() => {
     loadTexts()
     loadUser()
@@ -17,7 +16,6 @@ export default function DashboardHeader({ language, setLanguage }) {
       const token = sessionStorage.getItem('token')
       if (!token) return
       
-      // Fetch real user data from the backend using JWT token
       const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/user/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -32,7 +30,6 @@ export default function DashboardHeader({ language, setLanguage }) {
     } catch (error) {
       console.log("Error loading user data:", error)
       
-      // Fallback to sessionStorage data if API fails
       const userEmail = sessionStorage.getItem('userEmail')
       if (userEmail) {
         const emailUser = userEmail.split('@')[0]
@@ -57,7 +54,6 @@ export default function DashboardHeader({ language, setLanguage }) {
           email: userEmail
         })
       } else {
-        // Final fallback
         setUser({
           name: 'User',
           company: 'Company AS',

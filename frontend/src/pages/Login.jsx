@@ -4,7 +4,7 @@ import axios from "axios"
 import { Eye, EyeOff } from "lucide-react"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-// Using SOW-specified background image
+
 const backgroundImage = "https://storage.123fakturera.se/public/wallpapers/sverige43.jpg"
 
 export default function Login({ language, setLanguage, setToken }) {

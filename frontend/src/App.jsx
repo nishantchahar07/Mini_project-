@@ -13,7 +13,6 @@ function AppContent() {
   const [token, setToken] = useState(sessionStorage.getItem('token') || '')
   const location = useLocation()
 
-  // Handle language changes and persist to localStorage
   const handleLanguageChange = (newLang) => {
     console.log('App: Language changing from', language, 'to', newLang)
     setLanguage(newLang)

@@ -3,17 +3,16 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import './DashboardSidebar.css'
 
-// Import your provided PNG icons
 import InvoicesIcon from '../../assets/icons/invoices-BkXL9vU_.png'
 import CustomersIcon from '../../assets/icons/customers-D9Vkbe79.png'
-import SupportIcon from '../../assets/icons/support-DaW0YcI6.png' // Using support as business icon
+import SupportIcon from '../../assets/icons/support-DaW0YcI6.png'
 import JournalIcon from '../../assets/icons/invoiceJournal-MUxoNRXF.png'
 import PricelistIcon from '../../assets/icons/pricelist-B-brUIvJ.png'
 import MultipleIcon from '../../assets/icons/multipleInvoicing-CQx5HdvY.png'
 import UnpaidIcon from '../../assets/icons/unpaidInvoices-BDSWgO6w.png'
 import OfferIcon from '../../assets/icons/offer-D6rRk8QD.png'
 import ImportExportIcon from '../../assets/icons/importExport-DcfkwvHi.png'
-import DownloadIcon from '../../assets/icons/download.png' // Using download as logout icon
+import DownloadIcon from '../../assets/icons/download.png'
 
 export default function DashboardSidebar({ language }) {
   const [texts, setTexts] = useState({})

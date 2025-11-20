@@ -2,11 +2,9 @@
 *{box-sizing:border-box}
 html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;color:#222}
 
-/* Main layout */
 .pr-main-content{padding:24px;min-height:100vh;background:#f8f9fa;overflow-y:auto}
 .pr-content{max-width:100%;margin:0 auto}
 
-/* Controls section */
 .pr-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:16px}
 .pr-searches{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .pr-input{padding:10px 16px;border-radius:20px;border:1px solid #e8eef2;min-width:200px;font-size:14px;background:#fff}
@@ -25,10 +23,8 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
 }
 .pr-btn:hover{background:var(--blue);color:#fff;transform:translateY(-1px);box-shadow:0 2px 8px rgba(13,132,230,0.3)}
 
-/* Table layout */
 .pr-table{background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.05);overflow:hidden;position:relative}
 
-/* Desktop view */
 .pr-thead{
   display:grid;
   grid-template-columns:120px 2fr 120px 120px 100px 100px 2fr;
@@ -67,7 +63,6 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
   line-height:1.4;
 }
 
-/* Editable field styling */
 .pr-editable{
   cursor:pointer;
   transition:all 0.2s ease;
@@ -84,7 +79,6 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
   outline:none;
 }
 
-/* Specific field styling */
 .pr-article{background:#f1f8ff;color:#0066cc;font-weight:600}
 .pr-product{min-width:200px;max-width:300px}
 .pr-inprice,.pr-price{text-align:right;font-family:monospace;color:#28a745;font-weight:600}
@@ -92,7 +86,6 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
 .pr-stock{text-align:right;color:#6c757d}
 .pr-desc{min-width:150px;max-width:250px;color:#6c757d}
 
-/* Empty state */
 .pr-empty{
   text-align:center;
   padding:40px;
@@ -102,7 +95,6 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
   margin-top:20px;
 }
 
-/* Tablet view (768px - 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
   .pr-thead{
     grid-template-columns:100px 2fr 100px 100px 80px 80px 1.5fr;
@@ -122,14 +114,13 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
   .pr-desc{min-width:120px;max-width:200px}
 }
 
-/* Tablet portrait view (600px - 768px) */
 @media (max-width: 768px) and (min-width: 601px) {
   .pr-controls{flex-direction:column;align-items:stretch;gap:12px}
   .pr-searches{justify-content:center}
   .pr-actions{justify-content:center}
   
   .pr-thead{
-    display:none; /* Hide headers on tablet, show them inline */
+    display:none;
   }
   
   .pr-row{
@@ -164,7 +155,6 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
   }
 }
 
-/* Mobile view (up to 600px) */
 @media (max-width: 600px) {
   .pr-main-content{padding:16px}
   
@@ -191,7 +181,6 @@ html,body,#root{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;colo
     background:#fff;
   }
   
-  /* Show only product and price on mobile as per design */
   .pr-article,.pr-inprice,.pr-unit,.pr-stock,.pr-desc{display:none}
   
   .pr-pill{
