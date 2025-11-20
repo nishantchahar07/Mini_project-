@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "build": "npm run dev",
+     "start": "node server.js",
+      "dev": "nodemon server.js",
+    "build": "echo 'nothing to build'",
     "init-db": "node scripts/init-db.js",
     "populate-texts": "node scripts/populate-texts.js",
     "populate-products": "node scripts/populate-products.js",
