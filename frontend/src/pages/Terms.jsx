@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 import { useNavigate } from "react-router-dom"
+import backgroundImage from "../assets/image1.png"
 
 export default function Terms() {
   const navigate = useNavigate()
@@ -58,16 +59,33 @@ Have a great day!`, [])
 
   return (
     <div className="terms-page">
-      <div className="terms-bg" style={{ backgroundImage: "url(https://storage.123fakturera.se/public/wallpapers/sverige43.jpg)" }} />
+      <div className="terms-bg" style={{ backgroundImage: `url(${backgroundImage})` }} />
+      
+      {/* Terms content layout */}
+      <div className="terms-content-stack">
+        {/* Terms title outside box */}
+        <h1 className="terms-title-outside">Terms</h1>
+        
+        {/* First close button */}
+        <button 
+          className="terms-close-button" 
+          onClick={() => navigate(-1)}
+        >
+          Close and Go Back
+        </button>
 
-      <div className="terms-container">
-        <h1>Terms </h1>
-
-        {paragraphs.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
-        ))}
-
-        <button onClick={() => navigate(-1)}>
+        {/* Terms container box */}
+        <div className="terms-container">
+          {paragraphs.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
+        
+        {/* Second close button */}
+        <button 
+          className="terms-close-button" 
+          onClick={() => navigate(-1)}
+        >
           Close and Go Back
         </button>
       </div>

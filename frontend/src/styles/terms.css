@@ -6,44 +6,47 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url(https://storage.123fakturera.se/public/wallpapers/sverige43.jpg);
-  background-size: 110% 110%;
-  background-position: center;
-  filter: brightness(0.8);
+  padding-top: 100px; /* Account for absolute header */
+  padding-bottom: 50px; /* Reduced since no footer */
+  z-index: 0; /* Background layer */
 }
 
-.terms-container {
+.terms-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 640px;
-  z-index: 5;
-  background: white;
-  border-radius: var(--border-radius-large);
-  padding: var(--spacing-large) var(--spacing-large);
-  box-shadow: 0 8px 30px var(--shadow-medium);
-  margin-top: 30px;
-  max-height: 80vh;
-  overflow-y: auto;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -1;
 }
 
-.terms-container h1 {
+/* Vertical stack container */
+.terms-content-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+  margin: auto;
+}
+
+/* Terms title outside the box */
+.terms-title-outside {
+  color: white;
   text-align: center;
-  color: var(--primary-red);
-  margin-bottom: 25px;
-  font-size: 40px;
-  font-weight: 700;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.terms-container p {
-  font-size: 16px;
-  color: #333;
-  line-height: 1.6;
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-.terms-container button {
-  display: block;
-  width: auto;
+/* Green close button styling */
+.terms-close-button {
   padding: 16px 32px;
   border-radius: var(--border-radius-large);
   background: var(--primary-green);
@@ -52,32 +55,82 @@
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-  margin: 20px auto 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  width: fit-content;
+  min-width: 200px;
+}
+
+.terms-close-button:hover {
+  background: var(--primary-green);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Terms container box - without title */
+.terms-container {
+  width: 100%;
+  max-width: 800px; /* Increased from 640px for wider box */
+  background: white;
+  border-radius: var(--border-radius-large);
+  padding: var(--spacing-large) var(--spacing-large);
+  box-shadow: 0 8px 30px var(--shadow-medium);
+  /* Removed max-height and overflow-y to show content in full */
+}
+
+.terms-container p {
+  font-size: 16px;
+  color: #555; /* Changed to grayish text like register page */
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: left;
 }
 
 @media (max-width: 920px) {
+  .terms-page {
+    padding-top: 90px; /* Account for absolute header */
+    padding-bottom: 40px; /* Reduced since no footer */
+  }
+  
   .terms-container {
     padding: 20px 26px;
-    max-width: 520px;
+    max-width: 700px; /* Increased from 520px for tablet */
   }
-
-  .terms-container h1 {
-    font-size: 34px;
+  
+  .terms-title-outside {
+    font-size: 30px;
+  }
+  
+  .terms-close-button {
+    font-size: 16px;
+    padding: 14px 28px;
+    min-width: 180px;
   }
 }
 
 @media (max-width: 620px) {
+  .terms-page {
+    padding-top: 80px; /* Adjusted for 70px mobile header + 10px margin */
+    padding-bottom: 40px; /* Reduced since no footer */
+  }
+  
   .terms-container {
-    max-width: 92%;
+    max-width: 95%; /* Increased for mobile */
     padding: 18px;
     border-radius: 18px;
   }
-
-  .terms-container h1 {
-    font-size: 32px;
+  
+  .terms-title-outside {
+    font-size: 28px;
   }
-
+  
   .terms-container p {
     font-size: 14px;
+  }
+  
+  .terms-close-button {
+    font-size: 15px;
+    padding: 12px 24px;
+    min-width: 160px;
   }
 }
